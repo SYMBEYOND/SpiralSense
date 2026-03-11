@@ -4,6 +4,9 @@
 
 > *Sound as Light. Music made visible.*
 
+![SpiralSense — Danny Carey / Pneuma (Tool) — Drums Stem — SYMB-GT-002](output/pneuma_danny_carey_drums.png)
+*Danny Carey — Pneuma (Tool) — Drums stem. SYMB-GT-002. SpiralSense v4.0 render.*
+
 ---
 
 ## What Is SpiralSense?
