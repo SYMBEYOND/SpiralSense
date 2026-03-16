@@ -236,6 +236,8 @@ The architecture supports exponents up to p=4423 (1,332-digit prime). Human-audi
 
 5. **Scaling** — For deep exponents (p=521+), live per-frame big-integer modular squaring at 86fps becomes expensive. Checkpointing, background verification queues, and decoupling audio frame rate from LL iteration rate will be required.
 
+6. Parameter sweep — The three core control parameters (frequency bucket boundaries, amplitude multiplier ×5, frame rate/hop size) were chosen intuitively. A systematic sweep across these variables should map the cascade's behavioral phase space before Monte Carlo seed testing is performed.
+
 ---
 
 ## This Is a Work in Progress
