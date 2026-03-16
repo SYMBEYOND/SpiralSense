@@ -238,6 +238,8 @@ The architecture supports exponents up to p=4423 (1,332-digit prime). Human-audi
 
 6. Parameter sweep — The three core control parameters (frequency bucket boundaries, amplitude multiplier ×5, frame rate/hop size) were chosen intuitively. A systematic sweep across these variables should map the cascade's behavioral phase space before Monte Carlo seed testing is performed.
 
+7. Phase geometry — The first seven Mersenne prime exponents indexed by position form a perfect 7th-root-of-unity structure: φk = e^(2πik/7), with exact mirror symmetry (k=1/6, k=2/5, k=3/4) and exact closure at k=7. Thomas Frumkin identified this geometrically. Verified computationally March 15, 2026. Integration into the torus visualization is the next step.
+
 ---
 
 ## This Is a Work in Progress
