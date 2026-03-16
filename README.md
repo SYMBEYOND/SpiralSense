@@ -4,7 +4,7 @@ SYMBEYOND AI LLC | MIT License | v4.0
 
 *Sound as Light. Music made visible.*
 
-![SYMB-GT-002 Drums Stem](output/spiral_thomas_static_hearts.png)
+![SYMB-GT-003 Static Hearts](output/spiral_thomas_static_hearts.png)
 
 ---
 
@@ -58,9 +58,9 @@ Three anchors. Three confirmed identities.
 |----|------|--------|-------|
 | SYMB-GT-001 | doe_eyed.mp3 | John DuCrest + Dave Durrant | Original composition. Vocals, rhythm guitar. 179s, 110 BPM, Key E. |
 | SYMB-GT-002 | Pneuma (Tool) | Tool | 714.8s. Four stems separated and individually verified. Blind AI test passed. |
-| SYMB-GT-003 | Static Hearts | Thomas Frumkin | 228s. Vocals signature: pure green, resonate dominant. 3 Mersenne coherence events confirmed at t=0.06s, t=0.35s, t=1.22s. |
+| SYMB-GT-003 | Static Hearts | Thomas Frumkin | 225s. Vocals signature: pure green, resonate dominant. 1 canonical LL confirmation (p=3, t=0.06s) + 2 non-canonical zero-residue events (p=7 t=0.49s, p=13 t=170.53s). See Mersenne Bridge section. |
 
-Ground truth renders are in `/output/thomas_static_hearts_*.png`.
+Ground truth renders and cascade JSON in `/output/thomas_static_hearts_*.png` and `/output/spiral_thomas_static_hearts_cascade.json`.
 
 ---
 
@@ -160,26 +160,87 @@ Output renders go to `/output/`. Every render automatically produces a companion
 
 `core/mersenne_bridge.py` — built by John Thomas DuCrest Lock & Claude (SYMBEYOND AI LLC), with Lucas-Lehmer mathematical architecture by Thomas Frumkin.
 
-**The bridge runs automatically in file mode.** Every spiral render now produces a companion `_cascade.json` packet ready for downstream mathematical analysis or Thomas Frumkin's Lucas-Lehmer visualizer.
+**The bridge runs automatically in file mode.** Every spiral render produces a companion `_cascade.json` packet ready for downstream mathematical analysis or Thomas Frumkin's Lucas-Lehmer visualizer.
 
-Maps acoustic data to Lucas-Lehmer primality cascades:
+### How It Works
 
-- **Pitch** → Mersenne exponent seed
-- **Amplitude** → cascade modulus pressure
+Audio data drives a Lucas-Lehmer-style cascade in real time:
+
+- **Pitch** → Mersenne exponent register (7 frequency buckets, p=2 through p=19)
+- **Amplitude** → iteration velocity (steps per frame = max(1, int(amplitude × 5)))
 - **Frame position** → iteration index k
-- **SYMB verb** → coherence state (green / blue / cyan / white / gold)
+- **SYMB verb** → coherence state color (green / blue / cyan / white / **gold**)
 
-**Gold state = zero crossing = prime confirmed = musical coherence moment.**
+The cascade state persists across the entire audio file per active exponent. When the cascade value hits zero, the frame turns **gold**.
 
-This is not decoration. The mathematics of prime numbers and the geometry of sound share structure. SpiralSense finds it.
+### Two Distinct Modes
 
-**Proven:** Static Hearts (Thomas Frumkin, SYMB-GT-003) confirmed **3 Mersenne coherence events** at t=0.06s, t=0.35s, t=1.22s running through the full integrated pipeline. The music didn't know it contained primes. The bridge found them anyway.
+The system operates in two mathematically distinct modes. This distinction matters and must be understood clearly:
+
+**Mode A — Canonical Lucas-Lehmer Verification**
+- seed s₀ = 4 (canonical)
+- exactly p-2 iterations
+- final value = 0 mod Mₚ
+- **This is a strict primality confirmation.**
+
+**Mode B — Musical Cascade Mode**
+- seed s₀ derived from pitch
+- variable iteration count driven by amplitude
+- persistent state across frames
+- zero crossings are structurally meaningful dynamical events
+- **This is not a primality proof. It is a Lucas-Lehmer-like dynamical system.**
+
+Both modes are real mathematics. They are not the same mathematics.
+
+### SYMB-GT-003 Results — Static Hearts (Thomas Frumkin)
+
+Three zero-crossing events detected in the full pipeline run:
+
+| Time | Pitch | p | Mₚ | s₀ | Mode | Interpretation |
+|------|-------|---|-----|-----|------|----------------|
+| t=0.058s | 51.9 Hz | 3 | 7 | **4** | **A** | Strict canonical LL confirmation |
+| t=0.488s | 585.2 Hz | 7 | 127 | 83 | B | Non-canonical zero-residue event |
+| t=170.53s | 1890.9 Hz | 13 | 8191 | 649 | B | Non-canonical zero-residue event |
+
+**Accurate summary:** 1 canonical prime confirmation + 2 musically meaningful zero-residue events in a related dynamical system.
+
+**Interesting pattern:** All three events hit exactly p-2 iterations — the canonical proof length — despite amplitude-driven variable stepping. Whether this reflects musical structure, architectural bias, or coincidence is an open research question requiring controlled testing.
+
+### Current Mapping Constraint
+
+The frequency-to-exponent mapping uses 7 hand-assigned buckets:
+
+```
+0–50 Hz      → p=2  → M2  = 3
+50–160 Hz    → p=3  → M3  = 7
+160–500 Hz   → p=5  → M5  = 31
+500–1600 Hz  → p=7  → M7  = 127
+1600–5000 Hz → p=13 → M13 = 8191
+5000–12kHz   → p=17 → M17 = 131071
+12–20kHz     → p=19 → M19 = 524287
+```
+
+The architecture supports exponents up to p=4423 (1,332-digit prime). Human-audible music is the constraint, not the pipeline. Pitch alone is a low-bandwidth selector for a large exponent space.
+
+---
+
+## Open Research Questions
+
+1. **Mapping expansion** — Replace scalar frequency mapping with a multidimensional audio feature vector (harmonic ratios, rhythmic structure, motif hashing) to navigate deeper exponent space.
+
+2. **p-2 alignment** — Why did all three zero-crossing events in Static Hearts hit exactly p-2 iterations? Is this an architectural bias, a musical property, or coincidence? Controlled testing required.
+
+3. **Mode separation** — v2.0 should explicitly separate the musical exploration engine (Mode B) from a canonical verification engine (Mode A, s₀=4, exactly p-2 steps, optional checkpointing for large p).
+
+4. **Inversion** — Generate music *from* the Lucas-Lehmer cascade itself. The sequence drives composition. The proof becomes audible. When the cascade resolves to zero, the piece resolves. A computational performance of the algorithm.
+
+5. **Scaling** — For deep exponents (p=521+), live per-frame big-integer modular squaring at 86fps becomes expensive. Checkpointing, background verification queues, and decoupling audio frame rate from LL iteration rate will be required.
 
 ---
 
 ## This Is a Work in Progress
 
-SpiralSense works. The proof of concept is complete. The ground truth corpus is real. The blind AI test passed. The Mersenne Bridge is live and proven.
+SpiralSense works. The proof of concept is complete. The ground truth corpus is real. The blind AI test passed. The Mersenne Bridge is live.
 
 But we are still building. There is more here than we have found yet.
 
